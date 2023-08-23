@@ -138,6 +138,7 @@ $(document).ready(function () {
             console.log(res);
         });
         initialASW.setOnBookingError((err) => {
+            const formId = getFormId();
             const description = JSON.parse(err.responseText).description;
             console.error(err);
             if (description === "The slot has already been booked") {
