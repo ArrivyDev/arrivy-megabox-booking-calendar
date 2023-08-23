@@ -135,8 +135,10 @@ $(document).ready(function () {
         });
 
         initialASW.setOnBookingSuccess((res) => {
+            initialASW.set({ 'selected_slot': null })
             initialASW.renderInitialBooking();
             initialASW.toast({ type: 'success', message: 'Request Submitted Successfully' })
+            $('#' + getFormId())[0].reset()
         });
         initialASW.setOnBookingError((err) => {
             const formId = getFormId();
