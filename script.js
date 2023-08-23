@@ -135,7 +135,8 @@ $(document).ready(function () {
         });
 
         initialASW.setOnBookingSuccess((res) => {
-            console.log(res);
+            initialASW.renderInitialBooking();
+            initialASW.toast({ type: 'success', message: 'Request Submitted Successfully' })
         });
         initialASW.setOnBookingError((err) => {
             const formId = getFormId();
