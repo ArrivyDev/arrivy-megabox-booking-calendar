@@ -111,7 +111,7 @@ $(document).ready(function () {
         initialASW = new ArrivySchedulingWidget({
             booking_url:
                 "ahRzfnRyYWNraW5nLWFwaS1tdWhpb3ItCxIMVXNlclNoYWRvdzIzGICAwPLAyekIDAsSB0Jvb2tpbmcYgICwiK2puwgM",
-            selector: ".flatpickr-calendar",
+            selector: ".aqw-widget",
         });
         initialASW.renderInitialBooking();
 
