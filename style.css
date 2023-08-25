@@ -1,1 +1,147 @@
 /* Custom Styles */
+.asw-wrapper {
+    background: #fff;
+    border-radius: 0.25rem;
+    color: #0d0e10;
+    font: 400 .9rem/1.4 Rubik, sans-serif;
+    margin-top: 1rem;
+    padding: 0;
+    width: 100%;
+    max-width: 560px;
+}
+.asw-wrapper .asw-datepicker {
+    width: 360px;
+}
+.asw-wrapper .asw-datepicker .datepicker-panel>ul[data-view=week] {
+    background-color: #daf0e2;
+}
+.asw-wrapper .asw-datepicker .datepicker-panel>ul[data-view=days]>li {
+    background-color: transparent;
+    color: #0d0e10;
+    font-weight: 400;
+    max-width: 2.25rem;
+    margin: 0.1875rem 0.375rem;
+    padding: 0.1875rem;
+    height: 2.25rem;
+}
+.asw-wrapper .asw-datepicker .datepicker-panel>ul[data-view=days]>li:hover {
+    background-color: #daf0e2;
+    color: #0d0e10;
+}
+.asw-wrapper .asw-datepicker .datepicker-panel>ul>li.picked,
+.asw-wrapper .asw-datepicker .datepicker-panel>ul>li.picked:hover {
+    background-color: #009d45;
+    box-shadow: 0 0.375rem 0.1875rem -0.1875rem rgba(0, 157, 69, 0.5);
+    color: #f5f6f8;
+}
+.asw-wrapper .asw-datepicker .datepicker-panel>ul>li.highlighted {
+    border-color: #009d45;
+}
+.asw-wrapper .asw-datepicker .datepicker-panel>ul>li.disabled,
+.asw-wrapper .asw-datepicker .datepicker-panel>ul>li.disabled:hover {}
+.asw-wrapper .asw-datepicker .datepicker-panel>ul>li.disabled,
+.asw-wrapper .asw-datepicker .datepicker-panel>ul>li.disabled:hover {
+    background-color: transparent;
+    color: #c4cbd1;
+}
+/* Slots */
+.asw-wrapper .asw-slots-wrapper .asw-slots-mask .asw-slot {
+    background-color: #daf0e2;
+    border-color: rgba(0, 157, 69, .5);
+    color: #0d0e10;
+    line-height: 1.28;
+    margin-bottom: 0.625rem;
+    padding: 0.625rem;
+}
+.asw-wrapper .asw-slots-wrapper .asw-slots-mask .asw-slot:hover {
+    background-color: #009d45;
+    border-color: #009d45;
+    color: #f5f6f8;
+}
+.asw-wrapper .asw-slots-wrapper .asw-slots-mask .asw-slot.asw-slot-booked {
+    background-color: #009d45;
+    border-color: #009d45;
+    color: #f5f6f8;
+    opacity: 0.5;
+}
+
+/* Date Picker */
+.datepicker-panel>ul>li:hover,
+.datepicker-panel>ul>li.highlighted{
+    background-color: #daf0e2;
+}
+.datepicker-panel>ul>li.highlighted:hover {
+    background-color: #e0f2e6;
+}
+
+/* Timezone Picker */
+.select2-container .select2-selection--single {
+    height: 3rem;
+    border-color: #dcecfd;
+    border-radius: 0.5rem;
+    font-family: Inter;
+    margin-bottom: 0;
+    text-align: left;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    color: #0d0e10;
+    line-height: 3rem;
+    padding-right: 3rem;
+}
+.select2-container .select2-selection--single .select2-selection__arrow {
+    height: 3rem;
+    width: 3rem;
+}
+.select2-container .select2-selection--single .select2-selection__arrow b {
+    border-top-color: #dcecfd;
+    border-width: 0.375rem 0.375rem 0;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+.select2-container.select2-container--focus .select2-selection--single,
+.select2-dropdown {
+    border-color: #76b729;
+}
+.select2-container.select2-container--focus .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #76b729;
+    border-width: 0 0.375rem 0.375rem;
+}
+
+/* Loading Spinner */
+.asw-wrapper .asw-loader-inner {
+    color: #0d0e10;
+}
+@media screen and (max-width: 1230px) {
+    .asw-wrapper .asw-datepicker {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+@media screen and (min-width: 768px) and (max-width: 1230px) {
+    .asw-wrapper .asw-row .asw-col {
+        max-width: 100%;
+    }
+    .asw-wrapper .asw-row .asw-col-slots {
+        position: relative;
+        margin-top: 1rem;
+        width: 100%;
+        max-height: 20rem;
+    }
+}
+@media screen and (max-width: 767px) {
+    .asw-wrapper {
+        max-width: 100%;
+    }
+    .asw-wrapper .asw-row .asw-col-slots {
+        z-index: 9999;
+    }
+}
+@media screen and (max-width: 420px) {
+    .asw-wrapper .asw-datepicker .datepicker-panel>ul[data-view=days]>li {
+        max-width: 1.875rem;
+        margin: 0.3125rem 0.375rem;
+        height: 1.875rem;
+        font-size: 80%;
+        padding: 0;
+    }
+}
