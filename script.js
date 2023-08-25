@@ -96,6 +96,9 @@ const prepareTask = () => {
 };
 
 $(document).ready(function () {
+    $(".toggle-aqw-widget").on("focus", function () {
+        $(this).closest(".form-field-wrapper").find(".aqw-widget").toggle();
+    })
     $(".get-quote").on("click", (e) => {
         e.preventDefault();
         if (!initialASW.get("selected_slot")) {
