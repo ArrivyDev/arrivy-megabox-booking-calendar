@@ -96,11 +96,7 @@ const prepareTask = () => {
 };
 
 $(document).ready(function () {
-    $(".toggle-aqw-widget").on("focusin", function () {
-        $(this).closest(".form-field-wrapper").find(".aqw-widget").show();
-    }).on("blur", function () {
-        $(this).closest(".form-field-wrapper").find(".aqw-widget").hide();
-    });
+
     $(".get-quote").on("click", (e) => {
         e.preventDefault();
         if (!initialASW.get("selected_slot")) {
