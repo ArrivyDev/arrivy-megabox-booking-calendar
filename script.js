@@ -97,7 +97,8 @@ const prepareTask = () => {
 
 const documentClickListener = (event) => {
     const clickedElement = event.target;
-    const divsToExclude = [$('#wf-form-Self-Move-In .aqw-widget'), $('#wf-form-Self-Move-In .aqw-widget').closest('.form-field-wrapper')];
+    const formId = getFormId();
+    const divsToExclude = [$(`#${formId} .aqw-widget`), $(`#${formId} .aqw-widget`).closest('.form-field-wrapper')];
     console.log(clickedElement);
     console.log(divsToExclude);
 
