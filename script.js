@@ -95,8 +95,27 @@ const prepareTask = () => {
     return task;
 };
 
-$(document).ready(function () {
+const documentClickListener = (event) => {
+    const clickedElement = event.target;
+    const divsToExclude = [$('#wf-form-Self-Move-In .aqw-widget'), $('#wf-form-Self-Move-In .aqw-widget').closest('.form-field-wrapper')];
+    console.log(clickedElement);
+    console.log(divsToExclude);
 
+    const allDivsSatisfied = divsToExclude.every(divToExclude => {
+        return !divToExclude.is(clickedElement) && !divToExclude.has(clickedElement).length;
+    });
+
+    if (allDivsSatisfied) {
+        document.removeEventListener('click', documentClickListener);
+        $('.toggle-aqw-widget').closest(".form-field-wrapper").find(".aqw-widget").hide();
+    }
+};
+
+$(document).ready(function () {
+    $(".toggle-aqw-widget").on("focusin", function () {
+        $(this).closest(".form-field-wrapper").find(".aqw-widget").show();
+        document.addEventListener('click', documentClickListener)
+    })
     $(".get-quote").on("click", (e) => {
         e.preventDefault();
         if (!initialASW.get("selected_slot")) {
