@@ -131,7 +131,7 @@ $(document).ready(function () {
         // initialize widget according to move type
         initialASW = new ArrivySchedulingWidget({
             booking_url:
-                "ahRzfnRyYWNraW5nLWFwaS1tdWhpb3ItCxIMVXNlclNoYWRvdzIzGICAwPLAyekIDAsSB0Jvb2tpbmcYgICwiK2puwgM",
+                "ahRzfnRyYWNraW5nLWFwaS1tdWhpb3ItCxIMVXNlclNoYWRvdzIzGICA0IL4taYJDAsSB0Jvb2tpbmcYgIDQg4jkpAgM",
             selector: ".aqw-widget",
         });
         initialASW.renderInitialBooking();
