@@ -127,20 +127,16 @@ $(document).ready(function () {
         initialASW.setOnSlotSelect((selectedSlot) => {
             const formId = getFormId();
             $("#" + formId + " input[name='" + getDateSelectorName() + "']").val(
-                moment.utc(selectedSlot.start_datetime)
-                    .local()
+                moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
                     .format("YYYY-MM-DD")
             );
             $("#" + formId + " input[name='Drop-Off-Time']:nth(0)").val(
-                moment.utc(selectedSlot.start_datetime)
-                    .local()
+                moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
                     .format("h:mm A")
             );
-            $("#" + formId + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime)
-                .local()
+            $("#" + formId + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
                 .format("h:mm A") + "']").prop(true)
-            $('#' + $("#" + getFormId() + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime)
-                .local()
+            $('#' + $("#" + getFormId() + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
                 .format("h:mm A") + "']").parent().attr('id')).click()
             $(
                 "#" + formId + " input[name='" + getDateSelectorName() + "']"
