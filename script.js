@@ -101,6 +101,9 @@ const createBooking = () => {
     initialASW.bookSlot(task);
 }
 
+const hidePopup = () => {
+    $('#' + getFormId() + ' .popup .close-button').click()
+}
 
 $(document).ready(function () {
     $(".request-booking").on("click", function (e) {
@@ -147,15 +150,23 @@ $(document).ready(function () {
         initialASW.setOnBookingSuccess((res) => {
             initialASW.set({ 'selected_slot': null })
             initialASW.renderInitialBooking();
-            initialASW.toast({ type: 'success', message: 'Request Submitted Successfully' })
-            $('#' + getFormId())[0].reset()
+            const formId = getFormId();
+            $('#' + formId)[0].reset();
+            $('#' + formId + ' input[type=submit]').val('Request Booking');
+            hidePopup();
+            $('#' + formId).closest('.w-form').find('.w-form-done').show();
+            $('#' + formId).hide();
+
         });
         initialASW.setOnBookingError((err) => {
             const formId = getFormId();
+            $('#' + formId + ' input[type=submit]').val('Request Booking')
+
             const description = JSON.parse(err.responseText).description;
             console.error(err);
             if (description === "The slot has already been booked") {
                 initialASW.renderInitialBooking();
+                hidePopup();
             }
 
             let errorElement = $(
