@@ -132,6 +132,9 @@ $(document).ready(function () {
             $("#" + formId + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime)
                 .local()
                 .format("h:mm A") + "']").prop(true)
+            $('#' + $("#" + getFormId() + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime)
+                .local()
+                .format("h:mm A") + "']").parent().attr('id')).click()
             $(
                 "#" + formId + " input[name='" + getDateSelectorName() + "']"
             ).removeClass("invalid"); // not working right now, class is being removed but date picker is not hiding
