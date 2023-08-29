@@ -115,11 +115,13 @@ $(document).ready(function () {
     });
     $("input[name='Delivery-Type']").on("change", function () {
         // initialize widget according to move type
-        const initialASW = formToWidget[getFormId()] ?? new ArrivySchedulingWidget({
+        const formId = getFormId();
+        const initialASW = formToWidget[formId] ?? new ArrivySchedulingWidget({
             booking_url:
                 "ahRzfnRyYWNraW5nLWFwaS1tdWhpb3ItCxIMVXNlclNoYWRvdzIzGICA0IL4taYJDAsSB0Jvb2tpbmcYgIDQg4jkpAgM",
-            selector: `#${getFormId()} .aqw-widget`,
+            selector: `#${formId} .aqw-widget`,
         });
+        formToWidget[formId] = initialASW
         initialASW.renderInitialBooking();
 
         initialASW.setOnSlotSelect((selectedSlot) => {
