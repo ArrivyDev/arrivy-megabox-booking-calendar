@@ -104,7 +104,7 @@ const hidePopup = () => {
 }
 const formToWidget = {
     'wf-form-Self-Move-In': null,
-    'wf-form-Deliever-To-Doo': null
+    'wf-form-Deliever-To-Door': null
 }
 
 $(document).ready(function () {
