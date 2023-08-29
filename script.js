@@ -126,9 +126,6 @@ $(document).ready(function () {
             );
             $(
                 "#" + formId + " input[name='" + getDateSelectorName() + "']"
-            ).closest(".form-field-wrapper").find(".aqw-widget").hide(); // not working right now, class is being removed but date picker is not hiding
-            $(
-                "#" + formId + " input[name='" + getDateSelectorName() + "']"
             ).removeClass("invalid"); // not working right now, class is being removed but date picker is not hiding
             $("#" + formId + " input[name='" + getDateSelectorName() + "']")
                 .parent()
