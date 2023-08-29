@@ -95,20 +95,20 @@ const prepareTask = () => {
     return task;
 };
 
+const createBooking = () => {
+    const task = prepareTask();
+    task.title = initialASW.generateBookingTaskTitle(task);
+    initialASW.bookSlot(task);
+}
 
 
 $(document).ready(function () {
-    $(".request-booking").on("click", (e) => {
+    $(".request-booking").on("click", function (e) {
+        $(this).val('Please wait...')
         e.preventDefault();
-        if (!initialASW.get("selected_slot")) {
-            initialASW.toast({ type: "error", message: "Please Select Slot" });
-            return;
-        }
-        const task = prepareTask();
-        task.title = initialASW.generateBookingTaskTitle(task);
-        initialASW.bookSlot(task);
+        createBooking();
     });
-    $("input[name='Delivery-Type']").on("change", () => {
+    $("input[name='Delivery-Type']").on("change", function () {
         // initialize widget according to move type
         initialASW = new ArrivySchedulingWidget({
             booking_url:
