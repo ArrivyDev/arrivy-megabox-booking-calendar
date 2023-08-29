@@ -71,6 +71,12 @@ const prepareTask = () => {
             $("input[name='Delivery-Type']:checked").val()
         )
     );
+    templateExtraFields.push(
+        createTemplateExtraField(
+            "Price",
+            $('#' + formId + ' .total-price').html()
+        )
+    );
 
     Object.keys(taskFieldToFormField).forEach((key) => {
         const val = $(
