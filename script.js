@@ -95,29 +95,10 @@ const prepareTask = () => {
     return task;
 };
 
-const documentClickListener = (event) => {
-    const clickedElement = event.target;
-    const formId = getFormId();
-    const divsToExclude = [$(`#${formId} .aqw-widget`), $(`#${formId} .aqw-widget`).closest('.form-field-wrapper')];
-    console.log(clickedElement);
-    console.log(divsToExclude);
 
-    const allDivsSatisfied = divsToExclude.every(divToExclude => {
-        return !divToExclude.is(clickedElement) && !divToExclude.has(clickedElement).length;
-    });
-
-    if (allDivsSatisfied) {
-        document.removeEventListener('click', documentClickListener);
-        $('.toggle-aqw-widget').closest(".form-field-wrapper").find(".aqw-widget").hide();
-    }
-};
 
 $(document).ready(function () {
-    $(".toggle-aqw-widget").on("focusin", function () {
-        $(this).closest(".form-field-wrapper").find(".aqw-widget").show();
-        document.addEventListener('click', documentClickListener)
-    })
-    $(".get-quote").on("click", (e) => {
+    $(".request-booking").on("click", (e) => {
         e.preventDefault();
         if (!initialASW.get("selected_slot")) {
             initialASW.toast({ type: "error", message: "Please Select Slot" });
