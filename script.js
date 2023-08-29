@@ -120,7 +120,7 @@ $(document).ready(function () {
         initialASW.setOnSlotSelect((selectedSlot) => {
             const formId = getFormId();
             $("#" + formId + " input[name='" + getDateSelectorName() + "']").val(
-                moment(selectedSlot.start_datetime)
+                moment.utc(selectedSlot.start_datetime)
                     .local()
                     .format("YYYY-MM-DD, h:mm A")
             );
