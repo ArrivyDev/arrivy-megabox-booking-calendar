@@ -1,6 +1,4 @@
 /* Arrivy Bookings Widget Start */
-let initialASW = null;
-
 const formToDateFieldName = {
     "Self Move In": "Move-In-Date",
     "To Door": "Date-2",
@@ -97,12 +95,16 @@ const prepareTask = () => {
 
 const createBooking = () => {
     const task = prepareTask();
-    task.title = initialASW.generateBookingTaskTitle(task);
-    initialASW.bookSlot(task);
+    task.title = formToWidget[getFormId()].generateBookingTaskTitle(task);
+    formToWidget[getFormId()].bookSlot(task);
 }
 
 const hidePopup = () => {
     $('#' + getFormId() + ' .popup .close-button').click()
+}
+const formToWidget = {
+    'wf-form-Self-Move-In': null,
+    'wf-form-Deliever-To-Doo': null
 }
 
 $(document).ready(function () {
@@ -113,10 +115,10 @@ $(document).ready(function () {
     });
     $("input[name='Delivery-Type']").on("change", function () {
         // initialize widget according to move type
-        initialASW = new ArrivySchedulingWidget({
+        const initialASW = formToWidget[getFormId()] ?? new ArrivySchedulingWidget({
             booking_url:
                 "ahRzfnRyYWNraW5nLWFwaS1tdWhpb3ItCxIMVXNlclNoYWRvdzIzGICA0IL4taYJDAsSB0Jvb2tpbmcYgIDQg4jkpAgM",
-            selector: ".aqw-widget",
+            selector: `#${getFormId()} .aqw-widget`,
         });
         initialASW.renderInitialBooking();
 
