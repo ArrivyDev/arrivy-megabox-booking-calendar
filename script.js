@@ -31,8 +31,8 @@ const createTemplateExtraField = (key, val) => {
 
 const prepareTask = () => {
     const templateExtraFieldToFormField = {
-        "Space Required": "needed-space",
-        "Storage Duration": "time-to-store",
+        "Space Required": "Needed-Space",
+        "Storage Duration": "Time-to-Store",
         Service: "service-you-are-after",
     };
 
