@@ -74,7 +74,7 @@ const prepareTask = () => {
     templateExtraFields.push(
         createTemplateExtraField(
             "Price",
-            $('#' + formId + ' .total-price').html()
+            $('#' + formId + ' .total-price span').text()
         )
     );
 
