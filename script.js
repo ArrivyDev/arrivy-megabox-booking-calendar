@@ -114,8 +114,14 @@ const formToWidget = {
 }
 
 $(document).ready(function () {
+    $('.get-quote').on('click', function (e) {
+        $('#' + getFormId() + ' .request-booking').attr('data-create-task', true)
+    })
+    $('.decide-later').on('click', function (e) {
+        $('#' + getFormId() + ' .request-booking').attr('data-create-task', false)
+    })
     $(".request-booking").on("click", function (e) {
-        if ($(this).val() === 'Request Booking') {
+        if ((/true/).test($(this).attr('data-create-task'))) {
             $(this).val('Please wait...')
             e.preventDefault();
             createBooking();
