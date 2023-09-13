@@ -1,7 +1,7 @@
 /* Arrivy Bookings Widget Start */
 const formToDateFieldName = {
     "Self Move In": "Move-In-Date",
-    "To Door": "Date-2",
+    "To Door": "Drop-Off-Date",
 };
 
 const deliveryTypeToFormId = {
