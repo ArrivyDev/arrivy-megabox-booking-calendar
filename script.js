@@ -48,7 +48,7 @@ const prepareTask = () => {
         customer_state: "state",
         customer_country: "country-2",
         customer_zipcode: "Postcode",
-        customer_address_line_1: "Address-2",
+        customer_address_line_1: "Address",
         customer_email: "Email",
         customer_mobile_number: "Phone",
         customer_first_name: "First-Name",
