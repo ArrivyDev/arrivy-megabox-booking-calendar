@@ -115,9 +115,11 @@ const formToWidget = {
 
 $(document).ready(function () {
     $(".request-booking").on("click", function (e) {
-        $(this).val('Please wait...')
-        e.preventDefault();
-        createBooking();
+        if ($(this).val() === 'Request Booking') {
+            $(this).val('Please wait...')
+            e.preventDefault();
+            createBooking();
+        }
     });
     $("input[name='Delivery-Type']").on("change", function () {
         // initialize widget according to move type
