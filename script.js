@@ -36,16 +36,28 @@ const prepareTask = () => {
         Service: "service-you-are-after",
     };
 
-    const taskFieldToFormField = {
+    const taskFieldToFormFielSelfMoveIn = {
+        customer_email: "Email-5",
+        customer_mobile_number: "Phone-3",
+        customer_first_name: "First-Name-3",
+        customer_last_name: "Last-Name-3",
+    };
+
+    const taskFieldToFormFieldDeliverToDoor = {
         customer_city: "city-2",
         customer_state: "state",
         customer_country: "country-2",
         customer_zipcode: "Postcode",
         customer_address_line_1: "Address-2",
-        customer_email: "Email-5",
-        customer_mobile_number: "Phone-3",
-        customer_first_name: "First-Name-3",
-        customer_last_name: "Last-Name-3",
+        customer_email: "Email",
+        customer_mobile_number: "Phone",
+        customer_first_name: "First-Name",
+        customer_last_name: "Last-Name",
+    };
+
+    const taskFieldToFormFieldMap = {
+        "Self Move In": taskFieldToFormFielSelfMoveIn,
+        "To Door": taskFieldToFormFieldDeliverToDoor,
     };
 
     const task = {};
@@ -77,6 +89,8 @@ const prepareTask = () => {
             $('#' + formId + ' .total-price span').text()
         )
     );
+
+    const taskFieldToFormField = taskFieldToFormFieldMap[getDeliveryType()]
 
     Object.keys(taskFieldToFormField).forEach((key) => {
         const val = $(
