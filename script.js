@@ -33,7 +33,7 @@ const prepareTask = () => {
     const templateExtraFieldToFormField = {
         "Space Required": "Needed-Space",
         "Storage Duration": "Time-to-Store",
-        Service: "service-you-are-after",
+        "Service": "service-you-are-after",
     };
 
     const taskFieldToFormFielSelfMoveIn = {
@@ -60,6 +60,16 @@ const prepareTask = () => {
         "To Door": taskFieldToFormFieldDeliverToDoor,
     };
 
+    const priceTemplateExtraFields = {
+        "Per Month Price": "aqw-per-month-price",
+        "Delivery Price": "aqw-delivery-price",
+        "Re Delivery Price": "aqw-re-delivery-price",
+        "Service Price": "aqw-service-price",
+        "Zone Price": "aqw-zone-price",
+        "Total Price": "aqw-total-price",
+        "Total Price Upfront": "aqw-total-price-upfront"
+    };
+
     const task = {};
     const formId = getFormId();
 
@@ -83,12 +93,42 @@ const prepareTask = () => {
             $("input[name='Delivery-Type']:checked").val()
         )
     );
-    templateExtraFields.push(
-        createTemplateExtraField(
-            "Price",
-            $('#' + formId + ' .total-price span').text()
-        )
-    );
+
+    Object.keys(priceTemplateExtraFields).map((key) => {
+        let val = undefined
+        const valFromNested = $('#' + formId + ' .' + priceTemplateExtraFields[key] + ' span')
+        const valFromDirect = $('#' + formId + ' .' + priceTemplateExtraFields[key])
+
+        if (valFromNested.length > 0)
+            val = valFromNested.text()
+        else if (valFromDirect.length > 0)
+            val = valFromDirect.text()
+
+        if (val != undefined)
+            val = parseFloat(val.replace(/[^0-9.-]+/g, ''));
+        if (val !== undefined && !isNaN(val))
+            templateExtraFields.push(
+                createTemplateExtraField(
+                    key,
+                    val
+                )
+            );
+    })
+    const storageDuration = templateExtraFields.find(t => t.name === "Storage Duration")
+    if (storageDuration && storageDuration.value && storageDuration.value.toLowerCase() !== "month to month") {
+        // need to modify Total Price Upfront according to the price displayed on page
+        const totalPriceUpfrontIndex = templateExtraFields.findIndex(t => t.name === "Total Price Upfront")
+        if (totalPriceUpfrontIndex !== -1) {
+            const pricesToSkipFromTotalPriceUpfrontCalculation = ["Total Price Upfront", "Total Price"]
+            let totalPriceUpfront = 0.0
+            templateExtraFields.map(t => {
+                if (t.name in priceTemplateExtraFields && pricesToSkipFromTotalPriceUpfrontCalculation.indexOf(t.name) === -1 && [undefined, ''].indexOf(t.value) === -1) {
+                    totalPriceUpfront += parseFloat(t.value)
+                }
+            })
+            templateExtraFields[totalPriceUpfrontIndex].value = totalPriceUpfront
+        }
+    }
 
     const taskFieldToFormField = taskFieldToFormFieldMap[getDeliveryType()]
 
