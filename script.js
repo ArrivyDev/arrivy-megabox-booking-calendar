@@ -127,6 +127,79 @@ const formToWidget = {
     'wf-form-Deliever-To-Door': null
 }
 
+const initiateWidget = () => {
+
+    // initialize widget according to move type
+    const formId = getFormId();
+    const initialASW = formToWidget[formId] ?? new ArrivySchedulingWidget({
+        booking_url:
+            "ahRzfnRyYWNraW5nLWFwaS1tdWhpb3ItCxIMVXNlclNoYWRvdzIzGICA0IL4taYJDAsSB0Jvb2tpbmcYgIDQg4jkpAgM",
+        selector: `#${formId} .aqw-widget`,
+    });
+    formToWidget[formId] = initialASW
+    initialASW.renderInitialBooking();
+
+    initialASW.setOnSlotSelect((selectedSlot) => {
+        const formId = getFormId();
+        $("#" + formId + " input[name='" + getDateSelectorName() + "']").val(
+            moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
+                .format("YYYY-MM-DD")
+        );
+        $("#" + formId + " input[name='Drop-Off-Time']:nth(0)").val(
+            moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
+                .format("h:mm A")
+        );
+        $("#" + formId + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
+            .format("h:mm A") + "']").prop(true)
+        $('#' + $("#" + getFormId() + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
+            .format("h:mm A") + "']").parent().attr('id')).click()
+        $(
+            "#" + formId + " input[name='" + getDateSelectorName() + "']"
+        ).removeClass("invalid"); // not working right now, class is being removed but date picker is not hiding
+        $("#" + formId + " input[name='" + getDateSelectorName() + "']")
+            .parent()
+            .find(".invalid-text")
+            .remove();
+    });
+
+    initialASW.setOnBookingSuccess((res) => {
+        initialASW.set({ 'selected_slot': null })
+        initialASW.renderInitialBooking();
+        const formId = getFormId();
+        $('#' + formId)[0].reset();
+        $('#' + formId + ' input[type=submit]').val('Request Booking');
+        hidePopup();
+        $('#' + formId).closest('.w-form').find('.w-form-done').show();
+        $('#' + formId).hide();
+
+    });
+    initialASW.setOnBookingError((err) => {
+        const formId = getFormId();
+        $('#' + formId + ' input[type=submit]').val('Request Booking')
+
+        const description = JSON.parse(err.responseText).description;
+        console.error(err);
+        if (description === "The slot has already been booked") {
+            initialASW.renderInitialBooking();
+            hidePopup();
+        }
+
+        let errorElement = $(
+            "#" + formId + " input[name='" + getDateSelectorName() + "']"
+        )
+            .parent()
+            .find(".invalid-text")
+            .first();
+        if (errorElement.length) {
+            errorElement[0].innerHTML = description;
+        } else {
+            $("#" + formId + " input[name='" + getDateSelectorName() + "']")
+                .parent()
+                .append(`<div class="invalid-text">${description}</div>`);
+        }
+    });
+}
+
 $(document).ready(function () {
     $('.get-quote').on('click', function (e) {
         $('#' + getFormId() + ' .request-booking').attr('data-create-task', true)
@@ -141,77 +214,10 @@ $(document).ready(function () {
             createBooking();
         }
     });
-    $("input[name='Delivery-Type']").on("change", function () {
-        // initialize widget according to move type
-        const formId = getFormId();
-        const initialASW = formToWidget[formId] ?? new ArrivySchedulingWidget({
-            booking_url:
-                "ahRzfnRyYWNraW5nLWFwaS1tdWhpb3ItCxIMVXNlclNoYWRvdzIzGICA0IL4taYJDAsSB0Jvb2tpbmcYgIDQg4jkpAgM",
-            selector: `#${formId} .aqw-widget`,
-        });
-        formToWidget[formId] = initialASW
-        initialASW.renderInitialBooking();
-
-        initialASW.setOnSlotSelect((selectedSlot) => {
-            const formId = getFormId();
-            $("#" + formId + " input[name='" + getDateSelectorName() + "']").val(
-                moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
-                    .format("YYYY-MM-DD")
-            );
-            $("#" + formId + " input[name='Drop-Off-Time']:nth(0)").val(
-                moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
-                    .format("h:mm A")
-            );
-            $("#" + formId + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
-                .format("h:mm A") + "']").prop(true)
-            $('#' + $("#" + getFormId() + " input[name='Drop-Off-Time'][value='" + moment.utc(selectedSlot.start_datetime).tz(formToWidget[formId].get('timezone'))
-                .format("h:mm A") + "']").parent().attr('id')).click()
-            $(
-                "#" + formId + " input[name='" + getDateSelectorName() + "']"
-            ).removeClass("invalid"); // not working right now, class is being removed but date picker is not hiding
-            $("#" + formId + " input[name='" + getDateSelectorName() + "']")
-                .parent()
-                .find(".invalid-text")
-                .remove();
-        });
-
-        initialASW.setOnBookingSuccess((res) => {
-            initialASW.set({ 'selected_slot': null })
-            initialASW.renderInitialBooking();
-            const formId = getFormId();
-            $('#' + formId)[0].reset();
-            $('#' + formId + ' input[type=submit]').val('Request Booking');
-            hidePopup();
-            $('#' + formId).closest('.w-form').find('.w-form-done').show();
-            $('#' + formId).hide();
-
-        });
-        initialASW.setOnBookingError((err) => {
-            const formId = getFormId();
-            $('#' + formId + ' input[type=submit]').val('Request Booking')
-
-            const description = JSON.parse(err.responseText).description;
-            console.error(err);
-            if (description === "The slot has already been booked") {
-                initialASW.renderInitialBooking();
-                hidePopup();
-            }
-
-            let errorElement = $(
-                "#" + formId + " input[name='" + getDateSelectorName() + "']"
-            )
-                .parent()
-                .find(".invalid-text")
-                .first();
-            if (errorElement.length) {
-                errorElement[0].innerHTML = description;
-            } else {
-                $("#" + formId + " input[name='" + getDateSelectorName() + "']")
-                    .parent()
-                    .append(`<div class="invalid-text">${description}</div>`);
-            }
-        });
-    });
+    if (window.location.search.toLowerCase().includes("location")) {
+        initiateWidget()
+    }
+    $("input[name='Delivery-Type']").on("change", initiateWidget);
 });
 
 /* Arrivy Bookings Widget End */
