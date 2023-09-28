@@ -126,9 +126,15 @@ const prepareTask = () => {
                     totalPriceUpfront += parseFloat(t.value)
                 }
             })
+            totalPriceUpfront += 50
             templateExtraFields[totalPriceUpfrontIndex].value = totalPriceUpfront
         }
     }
+
+    templateExtraFields.push(createTemplateExtraField(
+        "Admin Fee",
+        50
+    ))
 
     const taskFieldToFormField = taskFieldToFormFieldMap[getDeliveryType()]
 
